@@ -53,6 +53,12 @@ aas_settings_t aassettings;
 // Returns:				-
 // Changes Globals:		-
 //===========================================================================
+
+/** This comment should get picked up by Doxygen
+ *
+ *
+ */
+
 int AAS_DropToFloor(vec3_t origin, vec3_t mins, vec3_t maxs)
 {
 	vec3_t end;
