@@ -20,16 +20,15 @@
 - Suffix `_r`: functions that end in `_r` signify that they are recursive.
 
 ### File naming conventions:
-- `Prefix g_`: File is part of `game`, which is server-side code.
-- `Prefix bg_`: Means 'both games', things shared by both the server game and client game. 
-- `ai_main.c`:
-- Prefix `be_ai`: The source file is part of `botlib` and deals
-  with AI
+- Prefix `g_`: File is part of `game`, which is server-side code.
+- Prefix `bg_`: Means 'both games', things shared by both the server game and client game. 
+- Prefixs `be_ai` and `ai`: The source file is part of `botlib` and deals with AI
 - Prefix `be_aas`: Part of `botlib` and relates to the Area Awareness System ( how bots know to navigate a map)
 - Prefix `cg_`: stands for "Client Game", meaning client-side game code.
 
 ### Botlib:
 - Contains the code for Bot AI.
+<<<<<<< HEAD
 - Uses `LibVar` (`l_libvar.h` and `l_libvar.c') which contains the bot library
   variables.
 
@@ -86,5 +85,5 @@ cvarTable_t cvarTable[] = {
 }
 ```
 
-- `qfalse`: When set to true, all clients will be notified of that the cvar has
-  changed.
+- `qfalse`: When set to true, all clients will be notified of that the cvar has changed.
+- Uses `LibVar` (`l_libvar.h` and `l_libvar.c`) which contains the bot library variables.
