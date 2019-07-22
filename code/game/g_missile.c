@@ -520,10 +520,10 @@ fire_plasma
 =================
 */
 gentity_t *fire_plasma (gentity_t *self, vec3_t start, vec3_t dir) {
-	gentity_t	*bolt;
-
-	VectorNormalize (dir);
+	gentity_t *bolt;
     int plasma_speed = 900;
+
+	VectorNormalize(dir);
 
 	bolt = G_Spawn();
 	bolt->classname = "plasma";
@@ -641,9 +641,9 @@ gentity_t *fire_bfg (gentity_t *self, vec3_t start, vec3_t dir) {
 /** Handles logic for firing a rocket, including speed and splash damage. */
 gentity_t *fire_rocket (gentity_t *self, vec3_t start, vec3_t dir) {
 	gentity_t	*bolt;
+    int rocketspeed = 900;
 
 	VectorNormalize (dir);
-    int rocket_speed = 900;
 
 	bolt = G_Spawn();
 	bolt->classname = "rocket";
