@@ -82,7 +82,7 @@ vmCvar_t bot_interbreedcycle;
 vmCvar_t bot_interbreedwrite;
 
 
-void ExitLevel( void );
+void ExitLevel(void );
 
 
 /*
@@ -104,23 +104,23 @@ void QDECL BotAI_Print(int type, char *fmt, ...) {
 			break;
 		}
 		case PRT_WARNING: {
-			G_Printf( S_COLOR_YELLOW "Warning: %s", str );
+			G_Printf(S_COLOR_YELLOW "Warning: %s", str );
 			break;
 		}
 		case PRT_ERROR: {
-			G_Printf( S_COLOR_RED "Error: %s", str );
+			G_Printf(S_COLOR_RED "Error: %s", str );
 			break;
 		}
 		case PRT_FATAL: {
-			G_Printf( S_COLOR_RED "Fatal: %s", str );
+			G_Printf(S_COLOR_RED "Fatal: %s", str );
 			break;
 		}
 		case PRT_EXIT: {
-			G_Error( S_COLOR_RED "Exit: %s", str );
+			G_Error(S_COLOR_RED "Exit: %s", str );
 			break;
 		}
 		default: {
-			G_Printf( "unknown print type\n" );
+			G_Printf("unknown print type\n" );
 			break;
 		}
 	}
@@ -158,18 +158,18 @@ void BotAI_Trace(bsp_trace_t *bsptrace, vec3_t start, vec3_t mins, vec3_t maxs, 
 BotAI_GetClientState
 ==================
 */
-int BotAI_GetClientState( int clientNum, playerState_t *state ) {
+int BotAI_GetClientState(int clientNum, playerState_t *state ) {
 	gentity_t	*ent;
 
 	ent = &g_entities[clientNum];
-	if ( !ent->inuse ) {
+	if (!ent->inuse ) {
 		return qfalse;
 	}
-	if ( !ent->client ) {
+	if (!ent->client ) {
 		return qfalse;
 	}
 
-	memcpy( state, &ent->client->ps, sizeof(playerState_t) );
+	memcpy(state, &ent->client->ps, sizeof(playerState_t) );
 	return qtrue;
 }
 
@@ -178,15 +178,15 @@ int BotAI_GetClientState( int clientNum, playerState_t *state ) {
 BotAI_GetEntityState
 ==================
 */
-int BotAI_GetEntityState( int entityNum, entityState_t *state ) {
+int BotAI_GetEntityState(int entityNum, entityState_t *state ) {
 	gentity_t	*ent;
 
 	ent = &g_entities[entityNum];
-	memset( state, 0, sizeof(entityState_t) );
+	memset(state, 0, sizeof(entityState_t) );
 	if (!ent->inuse) return qfalse;
 	if (!ent->r.linked) return qfalse;
 	if (ent->r.svFlags & SVF_NOCLIENT) return qfalse;
-	memcpy( state, &ent->s, sizeof(entityState_t) );
+	memcpy(state, &ent->s, sizeof(entityState_t) );
 	return qtrue;
 }
 
@@ -195,16 +195,16 @@ int BotAI_GetEntityState( int entityNum, entityState_t *state ) {
 BotAI_GetSnapshotEntity
 ==================
 */
-int BotAI_GetSnapshotEntity( int clientNum, int sequence, entityState_t *state ) {
+int BotAI_GetSnapshotEntity(int clientNum, int sequence, entityState_t *state ) {
 	int		entNum;
 
-	entNum = trap_BotGetSnapshotEntity( clientNum, sequence );
-	if ( entNum == -1 ) {
+	entNum = trap_BotGetSnapshotEntity(clientNum, sequence );
+	if (entNum == -1 ) {
 		memset(state, 0, sizeof(entityState_t));
 		return -1;
 	}
 
-	BotAI_GetEntityState( entNum, state );
+	BotAI_GetEntityState(entNum, state );
 
 	return sequence + 1;
 }
@@ -214,7 +214,7 @@ int BotAI_GetSnapshotEntity( int clientNum, int sequence, entityState_t *state )
 BotAI_BotInitialChat
 ==================
 */
-void QDECL BotAI_BotInitialChat( bot_state_t *bs, char *type, ... ) {
+void QDECL BotAI_BotInitialChat(bot_state_t *bs, char *type, ... ) {
 	int		i, mcontext;
 	va_list	ap;
 	char	*p;
@@ -224,7 +224,7 @@ void QDECL BotAI_BotInitialChat( bot_state_t *bs, char *type, ... ) {
 	va_start(ap, type);
 	p = va_arg(ap, char *);
 	for (i = 0; i < MAX_MATCHVARIABLES; i++) {
-		if( !p ) {
+		if(!p ) {
 			break;
 		}
 		vars[i] = p;
@@ -234,7 +234,7 @@ void QDECL BotAI_BotInitialChat( bot_state_t *bs, char *type, ... ) {
 
 	mcontext = BotSynonymContext(bs);
 
-	trap_BotInitialChat( bs->cs, type, mcontext, vars[0], vars[1], vars[2], vars[3], vars[4], vars[5], vars[6], vars[7] );
+	trap_BotInitialChat(bs->cs, type, mcontext, vars[0], vars[1], vars[2], vars[3], vars[4], vars[5], vars[6], vars[7] );
 }
 
 
@@ -390,7 +390,7 @@ void BotTeamplayReport(void) {
 	BotAI_Print(PRT_MESSAGE, S_COLOR_RED"RED\n");
 	for (i = 0; i < level.maxclients; i++) {
 		//
-		if ( !botstates[i] || !botstates[i]->inuse ) continue;
+		if (!botstates[i] || !botstates[i]->inuse ) continue;
 		//
 		trap_GetConfigstring(CS_PLAYERS+i, buf, sizeof(buf));
 		//if no config string or no name
@@ -403,7 +403,7 @@ void BotTeamplayReport(void) {
 	BotAI_Print(PRT_MESSAGE, S_COLOR_BLUE"BLUE\n");
 	for (i = 0; i < level.maxclients; i++) {
 		//
-		if ( !botstates[i] || !botstates[i]->inuse ) continue;
+		if (!botstates[i] || !botstates[i]->inuse ) continue;
 		//
 		trap_GetConfigstring(CS_PLAYERS+i, buf, sizeof(buf));
 		//if no config string or no name
@@ -544,7 +544,7 @@ void BotUpdateInfoConfigStrings(void) {
 
 	for (i = 0; i < level.maxclients; i++) {
 		//
-		if ( !botstates[i] || !botstates[i]->inuse )
+		if (!botstates[i] || !botstates[i]->inuse )
 			continue;
 		//
 		trap_GetConfigstring(CS_PLAYERS+i, buf, sizeof(buf));
@@ -567,7 +567,7 @@ void BotInterbreedBots(void) {
 
 	// get rankings for all the bots
 	for (i = 0; i < MAX_CLIENTS; i++) {
-		if ( botstates[i] && botstates[i]->inuse ) {
+		if (botstates[i] && botstates[i]->inuse ) {
 			ranks[i] = botstates[i]->num_kills * 2 - botstates[i]->num_deaths;
 		}
 		else {
@@ -601,7 +601,7 @@ void BotWriteInterbreeded(char *filename) {
 	bestbot = -1;
 	// get the best bot
 	for (i = 0; i < MAX_CLIENTS; i++) {
-		if ( botstates[i] && botstates[i]->inuse ) {
+		if (botstates[i] && botstates[i]->inuse ) {
 			rank = botstates[i]->num_kills * 2 - botstates[i]->num_deaths;
 		}
 		else {
@@ -667,7 +667,7 @@ void BotInterbreeding(void) {
 	trap_BotLibVarSet("bot_reloadcharacters", "1");
 	//add a number of bots using the desired bot character
 	for (i = 0; i < bot_interbreedbots.integer; i++) {
-		trap_SendConsoleCommand( EXEC_INSERT, va("addbot %s 4 free %i %s%d\n",
+		trap_SendConsoleCommand(EXEC_INSERT, va("addbot %s 4 free %i %s%d\n",
 						bot_interbreedchar.string, i * 50, bot_interbreedchar.string, i) );
 	}
 	//
@@ -853,10 +853,10 @@ void BotInputToUserCommand(bot_input_t *bi, usercmd_t *ucmd, int delta_angles[3]
 	for (j = 0; j < 3; j++) {
 		temp = ucmd->angles[j] - delta_angles[j];
 		/*NOTE: disabled because temp should be mod first
-		if ( j == PITCH ) {
+		if (j == PITCH ) {
 			// don't let the player look up or down more than 90 degrees
-			if ( temp > 16000 ) temp = 16000;
-			else if ( temp < -16000 ) temp = -16000;
+			if (temp > 16000 ) temp = 16000;
+			else if (temp < -16000 ) temp = -16000;
 		}
 		*/
 		ucmd->angles[j] = temp;
@@ -951,11 +951,11 @@ void BotAIRegularUpdate(void) {
 RemoveColorEscapeSequences
 ==============
 */
-void RemoveColorEscapeSequences( char *text ) {
+void RemoveColorEscapeSequences(char *text ) {
 	int i, l;
 
 	l = 0;
-	for ( i = 0; text[i]; i++ ) {
+	for (i = 0; text[i]; i++ ) {
 		if (Q_IsColorString(&text[i])) {
 			i++;
 			continue;
@@ -991,14 +991,14 @@ int BotAI(int client, float thinktime) {
 		return qfalse;
 	}
 	//retrieve any waiting server commands
-	while( trap_BotGetServerCommand(client, buf, sizeof(buf)) ) {
+	while(trap_BotGetServerCommand(client, buf, sizeof(buf)) ) {
 		//have buf point to the command and args to the command arguments
-		args = strchr( buf, ' ');
+		args = strchr(buf, ' ');
 		if (!args) continue;
 		*args++ = '\0';
 
 		//remove color espace sequences from the arguments
-		RemoveColorEscapeSequences( args );
+		RemoveColorEscapeSequences(args );
 
 		if (!Q_stricmp(buf, "cp "))
 			{ /*CenterPrintf*/ }
@@ -1075,8 +1075,8 @@ void BotScheduleBotThink(void) {
 
 	botnum = 0;
 
-	for( i = 0; i < MAX_CLIENTS; i++ ) {
-		if( !botstates[i] || !botstates[i]->inuse ) {
+	for(i = 0; i < MAX_CLIENTS; i++ ) {
+		if(!botstates[i] || !botstates[i]->inuse ) {
 			continue;
 		}
 		//initialize the bot think residual time
@@ -1120,9 +1120,9 @@ void BotWriteSessionData(bot_state_t *bs) {
 		bs->formation_dist
 		);
 
-	var = va( "botsession%i", bs->client );
+	var = va("botsession%i", bs->client );
 
-	trap_Cvar_Set( var, s );
+	trap_Cvar_Set(var, s );
 }
 
 /*
@@ -1134,8 +1134,8 @@ void BotReadSessionData(bot_state_t *bs) {
 	char	s[MAX_STRING_CHARS];
 	const char	*var;
 
-	var = va( "botsession%i", bs->client );
-	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
+	var = va("botsession%i", bs->client );
+	trap_Cvar_VariableStringBuffer(var, s, sizeof(s) );
 
 	sscanf(s,
 			"%i %i %i %i %i %i %i %i"
@@ -1368,18 +1368,18 @@ void BotResetState(bot_state_t *bs) {
 BotAILoadMap
 ==============
 */
-int BotAILoadMap( int restart ) {
+int BotAILoadMap(int restart ) {
 	int			i;
 	vmCvar_t	mapname;
 
 	if (!restart) {
-		trap_Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
-		trap_BotLibLoadMap( mapname.string );
+		trap_Cvar_Register(&mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
+		trap_BotLibLoadMap(mapname.string );
 	}
 
 	for (i = 0; i < MAX_CLIENTS; i++) {
 		if (botstates[i] && botstates[i]->inuse) {
-			BotResetState( botstates[i] );
+			BotResetState(botstates[i] );
 			botstates[i]->setupcount = 4;
 		}
 	}
@@ -1390,7 +1390,7 @@ int BotAILoadMap( int restart ) {
 }
 
 #ifdef MISSIONPACK
-void ProximityMine_Trigger( gentity_t *trigger, gentity_t *other, trace_t *trace );
+void ProximityMine_Trigger(gentity_t *trigger, gentity_t *other, trace_t *trace );
 #endif
 
 /*
@@ -1428,11 +1428,11 @@ int BotAIStartFrame(int time) {
 
 	if (bot_pause.integer) {
 		// execute bot user commands every frame
-		for( i = 0; i < MAX_CLIENTS; i++ ) {
-			if( !botstates[i] || !botstates[i]->inuse ) {
+		for(i = 0; i < MAX_CLIENTS; i++ ) {
+			if(!botstates[i] || !botstates[i]->inuse ) {
 				continue;
 			}
-			if( g_entities[i].client->pers.connected != CON_CONNECTED ) {
+			if(g_entities[i].client->pers.connected != CON_CONNECTED ) {
 				continue;
 			}
 			botstates[i]->lastucmd.forwardmove = 0;
@@ -1474,7 +1474,7 @@ int BotAIStartFrame(int time) {
 	else thinktime = bot_thinktime.integer;
 
 	// update the bot library
-	if ( botlib_residual >= thinktime ) {
+	if (botlib_residual >= thinktime ) {
 		botlib_residual -= thinktime;
 
 		trap_BotLibStartFrame((float) time / 1000);
@@ -1551,14 +1551,14 @@ int BotAIStartFrame(int time) {
 	floattime = trap_AAS_Time();
 
 	// execute scheduled bot AI
-	for( i = 0; i < MAX_CLIENTS; i++ ) {
-		if( !botstates[i] || !botstates[i]->inuse ) {
+	for(i = 0; i < MAX_CLIENTS; i++ ) {
+		if(!botstates[i] || !botstates[i]->inuse ) {
 			continue;
 		}
 		//
 		botstates[i]->botthink_residual += elapsed_time;
 		//
-		if ( botstates[i]->botthink_residual >= thinktime ) {
+		if (botstates[i]->botthink_residual >= thinktime ) {
 			botstates[i]->botthink_residual -= thinktime;
 
 			if (!trap_AAS_Initialized()) return qfalse;
@@ -1571,11 +1571,11 @@ int BotAIStartFrame(int time) {
 
 
 	// execute bot user commands every frame
-	for( i = 0; i < MAX_CLIENTS; i++ ) {
-		if( !botstates[i] || !botstates[i]->inuse ) {
+	for(i = 0; i < MAX_CLIENTS; i++ ) {
+		if(!botstates[i] || !botstates[i]->inuse ) {
 			continue;
 		}
-		if( g_entities[i].client->pers.connected != CON_CONNECTED ) {
+		if(g_entities[i].client->pers.connected != CON_CONNECTED ) {
 			continue;
 		}
 
@@ -1663,8 +1663,8 @@ int BotInitLibrary(void) {
 BotAISetup
 ==============
 */
-int BotAISetup( int restart ) {
-	int			errnum;
+int BotAISetup(int restart ) {
+	int	errnum;
 
 	trap_Cvar_Register(&bot_thinktime, "bot_thinktime", "100", CVAR_CHEAT);
 	trap_Cvar_Register(&bot_memorydump, "bot_memorydump", "0", CVAR_CHEAT);
@@ -1685,7 +1685,7 @@ int BotAISetup( int restart ) {
 	}
 
 	//initialize the bot states
-	memset( botstates, 0, sizeof(botstates) );
+	memset(botstates, 0, sizeof(botstates) );
 
 	errnum = BotInitLibrary();
 	if (errnum != BLERR_NOERROR) return qfalse;
@@ -1697,12 +1697,12 @@ int BotAISetup( int restart ) {
 BotAIShutdown
 ==============
 */
-int BotAIShutdown( int restart ) {
+int BotAIShutdown(int restart ) {
 
 	int i;
 
 	//if the game is restarted for a tournament
-	if ( restart ) {
+	if (restart ) {
 		//shutdown all the bots in the botlib
 		for (i = 0; i < MAX_CLIENTS; i++) {
 			if (botstates[i] && botstates[i]->inuse) {

@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 //
-// cg_main.c -- initialization and primary entry point for cgame
+/** Initialization and primary entry point for cgame */
 #include "cg_local.h"
 
 #ifdef MISSIONPACK
 #include "../ui/ui_shared.h"
-// display context for new ui stuff
+
+/** Display context for new UI stuff */
 displayContextDef_t cgDC;
 #endif
 
@@ -35,14 +36,7 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum );
 void CG_Shutdown( void );
 
 
-/*
-================
-vmMain
-
-This is the only way control passes into the module.
-This must be the very first function compiled into the .q3vm file
-================
-*/
+/** This is the only way control passes into the module. This must be the very first function compiled into the .q3vm file */
 Q_EXPORT intptr_t vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11  ) {
 
 	switch ( command ) {
@@ -1811,11 +1805,6 @@ void CG_LoadHudMenu( void ) {
 }
 
 void CG_AssetCache( void ) {
-	//if (Assets.textFont == NULL) {
-	//  trap_R_RegisterFont("fonts/arial.ttf", 72, &Assets.textFont);
-	//}
-	//Assets.background = trap_R_RegisterShaderNoMip( ASSET_BACKGROUND );
-	//Com_Printf("Menu Size: %i bytes\n", sizeof(Menus));
 	cgDC.Assets.gradientBar = trap_R_RegisterShaderNoMip( ASSET_GRADIENTBAR );
 	cgDC.Assets.fxBasePic = trap_R_RegisterShaderNoMip( ART_FX_BASE );
 	cgDC.Assets.fxPic[0] = trap_R_RegisterShaderNoMip( ART_FX_RED );
@@ -1835,18 +1824,14 @@ void CG_AssetCache( void ) {
 	cgDC.Assets.sliderThumb = trap_R_RegisterShaderNoMip( ASSET_SLIDER_THUMB );
 }
 #endif
-/*
-=================
-CG_Init
 
-Called after every level change or subsystem restart
-Will perform callbacks to make the loading info screen update.
-=================
-*/
+/** Called after every level change or subsystem restart Will perform callbacks 
+ *  to make the loading info screen update.  
+ */
 void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	const char	*s;
 
-	// clear everything
+	/** clear everything */
 	memset( &cgs, 0, sizeof( cgs ) );
 	memset( &cg, 0, sizeof( cg ) );
 	memset( cg_entities, 0, sizeof(cg_entities) );
@@ -1858,7 +1843,7 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	cgs.processedSnapshotNum = serverMessageNum;
 	cgs.serverCommandSequence = serverCommandSequence;
 
-	// load a few needed things before we do any screen updates
+	/** Load a few needed things before we do any screen updates */
 	cgs.media.charsetShader		= trap_R_RegisterShader( "gfx/2d/bigchars" );
 	cgs.media.whiteShader		= trap_R_RegisterShader( "white" );
 	cgs.media.charsetProp		= trap_R_RegisterShaderNoMip( "menu/art/font1_prop.tga" );
@@ -1871,19 +1856,20 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 
 	cg.weaponSelect = WP_MACHINEGUN;
 
-	cgs.redflag = cgs.blueflag = -1; // For compatibily, default to unset for
-	cgs.flagStatus = -1;
-	// old servers
+    /** For compatibily, default to unset for */
+	cgs.redflag = cgs.blueflag = -1; 
+    cgs.flagStatus = -1;
+	/** Old servers */
 
-	// get the rendering configuration from the client system
+	/** Get the rendering configuration from the client system */
 	trap_GetGlconfig( &cgs.glconfig );
 	cgs.screenXScale = cgs.glconfig.vidWidth / 640.0;
 	cgs.screenYScale = cgs.glconfig.vidHeight / 480.0;
 
-	// get the gamestate from the client system
+	/** Get the gamestate from the client system */
 	trap_GetGameState( &cgs.gameState );
 
-	// check version
+	/** Check version */
 	s = CG_ConfigString( CS_GAME_VERSION );
 	if ( strcmp( s, GAME_VERSION ) ) {
 		CG_Error( "Client/Server game mismatch: %s/%s", GAME_VERSION, s );
@@ -1894,7 +1880,7 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 
 	CG_ParseServerinfo();
 
-	// load the new map
+	/** Load the new map */
 	CG_LoadingString( "collision map" );
 
 	trap_CM_LoadMap( cgs.mapname );
@@ -1902,10 +1888,10 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 #ifdef MISSIONPACK
 	String_Init();
 #endif
-
-	cg.loading = qtrue;		// force players to load instead of defer
-
-	CG_LoadingString( "sounds" );
+    /** Force players to load instead of defer */
+	cg.loading = qtrue;		
+	
+    CG_LoadingString( "sounds" );
 
 	CG_RegisterSounds();
 
@@ -1915,23 +1901,25 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 
 	CG_LoadingString( "clients" );
 
-	CG_RegisterClients();		// if low on memory, some clients will be deferred
-
+    /** If low on memory, some clients will be deferred */
+	CG_RegisterClients();		
 #ifdef MISSIONPACK
 	CG_AssetCache();
-	CG_LoadHudMenu();      // load new hud stuff
+    /** Load new HUD stuff */
+	CG_LoadHudMenu();      
 #endif
-
-	cg.loading = qfalse;	// future players will be deferred
-
-	CG_InitLocalEntities();
+   
+    /** Future players will be deferred */
+	cg.loading = qfalse;	
+	
+    CG_InitLocalEntities();
 
 	CG_InitMarkPolys();
 
-	// remove the last loading update
+	/** Remove the last loading update */
 	cg.infoScreenText[0] = 0;
 
-	// Make sure we have update values (scores)
+	/** Make sure we have update values (scores) */
 	CG_SetConfigValues();
 
 	CG_StartMusic();
@@ -1947,16 +1935,11 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	trap_S_ClearLoopingSounds( qtrue );
 }
 
-/*
-=================
-CG_Shutdown
-
-Called before every level change or subsystem restart
-=================
-*/
+/** Called before every level change or subsystem restart.
+ *  Some mods may need to do cleanup work here like closing
+ *  files or archiving session data */
 void CG_Shutdown( void ) {
-	// some mods may need to do cleanup work here,
-	// like closing files or archiving session data
+
 }
 
 

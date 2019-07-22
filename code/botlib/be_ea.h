@@ -21,14 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 //
 
-/*****************************************************************************
- * name:		be_ea.h
- *
- * desc:		elementary actions
- *
- * $Archive: /source/code/botlib/be_ea.h $
- *
- *****************************************************************************/
+/** Elementary actions */
 
 //ClientCommand elementary actions
 void EA_Say(int client, char *str);
