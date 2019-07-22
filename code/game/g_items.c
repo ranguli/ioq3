@@ -22,14 +22,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 #include "g_local.h"
 
-/*
+/**
 
   Items are any object that a player can touch to gain some effect.
-
   Pickup will return the number of seconds until they should respawn.
-
-  all items should pop when dropped in lava or slime
-
+  All items should pop when dropped in lava or slime.
   Respawnable items don't actually go away when picked up, they are
   just made invisible and untouchable.  This allows them to ride
   movers and respawn appropriately.
@@ -43,8 +40,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define	RESPAWN_MEGAHEALTH	35//120
 #define	RESPAWN_POWERUP		120
 
-
-//======================================================================
 
 int Pickup_Powerup( gentity_t *ent, gentity_t *other ) {
 	int			quantity;
@@ -114,8 +109,6 @@ int Pickup_Powerup( gentity_t *ent, gentity_t *other ) {
 	}
 	return RESPAWN_POWERUP;
 }
-
-//======================================================================
 
 #ifdef MISSIONPACK
 int Pickup_PersistantPowerup( gentity_t *ent, gentity_t *other ) {
@@ -189,7 +182,6 @@ int Pickup_PersistantPowerup( gentity_t *ent, gentity_t *other ) {
 	return -1;
 }
 
-//======================================================================
 #endif
 
 int Pickup_Holdable( gentity_t *ent, gentity_t *other ) {
@@ -202,9 +194,6 @@ int Pickup_Holdable( gentity_t *ent, gentity_t *other ) {
 
 	return RESPAWN_HOLDABLE;
 }
-
-
-//======================================================================
 
 void Add_Ammo (gentity_t *ent, int weapon, int count)
 {
