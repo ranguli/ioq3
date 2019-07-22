@@ -30,7 +30,7 @@
 
 ### Botlib:
 - Contains the code for Bot AI.
-- Uses `LibVar` (`l_libvar.h` and `l_libvar.c') which contains the bot library
+- Uses `LibVar` (`l_libvar.h` and `l_libvar.c`) which contains the bot library
   variables.
 
 ### Notes on cvars:
