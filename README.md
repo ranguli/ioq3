@@ -32,3 +32,59 @@
 - Contains the code for Bot AI.
 - Uses `LibVar` (`l_libvar.h` and `l_libvar.c') which contains the bot library
   variables.
+
+### Notes on cvars:
+- A Console Variable (cvar) stores something in a way that can be accessed by
+  the console. 
+- Your code will check the value the next time it needs it.  
+- A cvar in the source can be read and used by any part of that source code
+  module.
+- Cvars are created in the code as a data structure. They require a default
+  initialization value and flags that control access.
+
+The locations of a cvar can be one of these three:
+- `game/g_main.c`
+- `cgame/cg_main.c`
+- `ui/ui_main.c`
+
+
+### Creating client game cvars: 
+```
+vmCvar_t    cg_drawFPS;
+```
+
+In order to allow the cvar to update automatically it must be added into the
+cvar table:
+
+```
+cvarTable_t cvarTable[] = {
+    ... 
+    { &cg_drawFPS, "cg_drawFPS", "0", CVAR_ARCHIVE }
+    ...
+}
+```
+
+- `&cg_drawFPS`:  Pointer to `cg_drawFPS` that stores the cvar value. 
+- `"cg_drawFPS"`: The name the cvar is called in the console.
+- `"0"`: The initialization value, which can be anything.
+- `CVAR_ARCHIVE`: Flag controlling the behavior of the variable.
+
+There are more flags in `q_shared.h`.
+
+In order to reference a cvar from another source file within the module:
+
+```
+extern  vmCvar_t        cg_drawFPS;
+```
+
+### Creating server cvar:
+```
+cvarTable_t cvarTable[] = {
+    ... 
+    { &g_gametype, "g_gametype", "0", CVAR_SERVERINFO | CVAR_LATCH, 0, qfalse }
+    ...
+}
+```
+
+- `qfalse`: When set to true, all clients will be notified of that the cvar has
+  changed.
