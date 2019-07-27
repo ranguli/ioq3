@@ -1,0 +1,145 @@
+h2.groupheader {
+	border-bottom: 1px solid white;
+}
+
+tr.heading h2.groupheader, h2.groupheader, body, #titlearea, hr.footer, .footer {
+    color: white;
+    background-color: #31364a;
+
+}
+
+#titlearea {
+    border: none;
+}
+
+.mdescLeft, .mdescRight, .memItemLeft, .memItemRight, .memTemplItemLeft, .memTemplItemRight, .memTemplParams {
+    background-color: #22273a;
+	text-align: left;
+
+}
+
+
+div.qindex, div.navtab {
+	background-color: #22273a;
+	border: none; 
+	text-align: center;
+}
+
+div.ah, span.ah {
+	background-color: #22273a; 
+	font-weight: bold;
+	border: none; 
+	border-radius: 0.5em;
+	box-shadow: none; 
+	background-image: none; 
+}
+
+.sm-dox ul {
+	border: none; 
+	padding: 5px 0;
+	background: #22273a;
+	border-radius: 5px !important;
+	box-shadow: none; 
+}
+
+.sm-dox, .sm-dox a, .sm-dox a:focus, .sm-dox a:hover, .sm-dox a:active {
+	border: none; 
+	background-image: none;
+	text-decoration: none;
+	text-shadow: none;
+	color: white;
+	background-color: #22273a;
+}
+
+.sm-dox ul a, .sm-dox ul a:hover, .sm-dox ul a:focus, .sm-dox ul a:active, .sm-dox ul a.highlighted {
+	border: none; 
+	color: white;
+	background-image: none;
+	border: none; 
+	background-color: #22273a;
+	background-image: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+div.fragment, pre.fragment {
+	padding: 10px;
+	margin: 4px 8px 4px 2px;
+	background-color: #22273a;
+    border: none;
+}
+
+.navpath ul {
+    background-image: none;
+    border: none;
+}
+.navpath li.navelem a {
+    padding: 0px 12px;
+	color: white;
+	outline: none;
+	text-shadow: none; 
+	text-decoration: none;
+}
+
+.navpath li {
+	background-image: none; 
+    border: none;
+	color: #364D7C;
+}
+
+.memSeparator {
+	border-bottom: 1px solid #31364a;
+}
+
+.memtitle {
+    border: none;
+    margin-bottom: none;
+	background-image: none; 
+	background-repeat: none;
+	background-color: #31364a;
+}
+
+.paramname {
+    color: #b72e2e
+
+}
+
+.memdoc {
+    border: none;
+    background-color: #22272a;
+    background-image: none;
+    color: white;
+}
+
+.memproto {
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    background-color: #22273a;
+    color: white;
+}
+
+.directory tr.even {
+    background-color: #22273a;
+}
+
+.sm-dox, .sm-dox a, .sm-dox a:focus, .sm-dox a:hover, .sm-dox a:active {
+    background-image: none;
+    text-decoration: none;
+    text-shadow: none;
+    color: white;
+}
+
+.header, .headertitle {
+    display: none;
+}
+
+body {
+    margin: 0;
+}
+
+
+hr.footer {
+    display: none;
+}
+
